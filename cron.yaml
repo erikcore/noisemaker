@@ -1,0 +1,4 @@
+cron:
+- description: refresh top 50 posts
+  url: /zf/freshenup
+  schedule: every 1 minutes

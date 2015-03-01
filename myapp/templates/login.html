@@ -1,0 +1,22 @@
+{% extends "myapp/templates/base.html" %}
+{% block title %}Noisemaker Login{% endblock %}
+{% block main_content %}
+<div class="login-wrap">
+	<form class="form-signin" role="form" name="login_form" action="/login" method="post">
+		<h2 class="form-signin-heading">Sign in</h2>
+		<input type="hidden" name="whence" value="{{ whence }}" />
+		<input type="text" class="form-control" placeholder="Username" name="username" required autofocus><br />
+		<input type="password" class="form-control" placeholder="Password" name="password" required><br />
+		<button class="btn btn-lg redbutton btn-block" type="submit">Sign in</button><br />
+	</form>
+	<div class="text-center" id="or_break"><span class="lead">-or-</span></div>
+	<form class="form-signin" role="form" name="register_form" action="/register" method="post">
+		<h2 class="form-signin-heading">Create an Account</h2>
+		<input type="hidden" name="whence" value="{{ whence }}" />
+		<input type="text" class="form-control" placeholder="Email Address" name="email" required autofocus><br />
+		<input type="text" class="form-control" placeholder="Username" name="username" required><br />
+		<input type="password" class="form-control" placeholder="Password" name="password" required><br />
+		<button class="btn btn-lg redbutton btn-block" type="submit">Sign up</button>
+	</form>
+</div>
+{% endblock %}

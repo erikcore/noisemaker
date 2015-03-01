@@ -1,0 +1,97 @@
+{% extends "myapp/templates/base.html" %}
+{% block title %}{{ post.title }} | Noisemaker{% endblock %}
+{% block scripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+	function vote(node) {
+		var postId = node.id.split(/_/)[2];
+		var postType = node.id.split(/_/)[1]
+		$.post( "/vote", { id: postId, type:postType }, function( data ) {
+			$('#up_'+postType+'_'+postId+'_arrow').addClass('arrow-muted');
+		});
+		return false;
+	}
+</script>
+{% endblock %}
+{% block main_content %}
+			<table class="table">
+				<tr>
+					<td class="text-center" style="width: 25px;padding-top:10px;" align="center">
+						{% if current_user and (current_user.id == post.author.key().id() or current_user.id in post.upvotes) %}
+						<div class="arrow-up arrow-muted"></div>
+						{% else %}
+						<a id="up_post_{{ post.key().id() }}" {% if current_user %}onclick="return vote(this)"{% endif %} href="/login"><div id="up_post_{{ post.key().id() }}_arrow" class="arrow-up"></div></i></a>
+						{% endif %}
+						<div class="arrow-cell">{{ post.upvotes|length - post.downvotes|length }}</div>
+					</td>
+					<td class="item-body" style="padding-top:8px;">
+							<span class="lead"><a href="{{ post.url }}">{{ post.title }}</a></span> <span class="text-muted base-url">{{ post.url|get_base_url }}</span>
+						<div class="post_detail post-meta"></span>by {{ post.author.username }} {{ post.ctime|timesince }} ago</div>
+					</td>
+				</tr>
+			</table>
+				<div class="item_comment">
+					{% if current_user %}
+					<form role="form" action="/newcomment" method="post">
+						<input type="hidden" name="whence" value="/item/{{ post.key().id() }}" />
+						<input type="hidden" name="type" value="top" />
+						<input type="hidden" name="id" value="{{ post.key().id() }}" />
+						<textarea name="comment_body" class="form-control comment_textarea" rows="3"></textarea><br />
+						<button class="btn btn-sm redbutton" type="submit">Post a comment</button>
+					</form>
+					{% endif %}
+				</div>
+				<div>
+				</div>
+
+		<table class="table">
+		{% for comment in comment_dict.keys() %}
+				<tr>
+					<td class="text-center" style="width: 25px;padding-top:10px;" align="center">
+						{% if current_user and (current_user.id == comment.author.key().id() or current_user.id in comment.upvotes) %}
+						<div class="arrow-up arrow-muted"></div>
+						{% else %}
+						<a id="up_comment_{{ comment.key().id() }}" {% if current_user %}onclick="return vote(this)"{% endif %} href="/login"><div id="up_comment_{{ comment.key().id() }}_arrow" class="arrow-up"></div></i></a>
+						{% endif %}
+						<div class="arrow-cell">{{ comment.upvotes|length - comment.downvotes|length }}</div>
+					</td>
+					<td>
+						<div class="text-muted comment-meta">
+							{{ comment.author.username }} {{ comment.ctime|timesince }} ago
+						</div>
+						<div class="comment-body">
+							{{ comment.body }}
+						</div>
+						<div class="text-muted comment-meta">
+							<a href="/comment/{{ comment.key().id() }}/">reply</a>
+						</div>
+						<!-- THERE ARE THE REPLIES -->
+						<table class="table">
+						{% for reply in comment_dict[comment] %}
+								<tr>
+									<td class="text-center" style="width: 25px;padding-top:10px;" align="center">
+										{% if current_user and (current_user.id == reply.author.key().id() or current_user.id in reply.upvotes) %}
+										<div class="arrow-up arrow-muted"></div>
+										{% else %}
+										<a id="up_comment_{{ reply.key().id() }}" {% if current_user %}onclick="return vote(this)"{% endif %} href="/login"><div id="up_comment_{{ reply.key().id() }}_arrow" class="arrow-up"></div></i></a>
+										{% endif %}
+										<div class="arrow-cell">{{ reply.upvotes|length - reply.downvotes|length }}</div>
+									</td>
+									<td>
+										<div class="text-muted comment-meta">
+											{{ reply.author.username }} {{ reply.ctime|timesince }} ago
+										</div>
+										<div class="comment-body">
+											{{ reply.body }}
+										</div>
+									</td>
+								</tr>
+						{% endfor %}
+						</table>
+						<!-- END REPLIES -->
+					</td>
+				</tr>
+		{% endfor %}
+		</table>
+		</div>
+{% endblock %}

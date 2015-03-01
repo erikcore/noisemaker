@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+		<title>{% block title %}Noisemaker{% endblock %}</title>
+
+		<link href="/static/main.css" rel="stylesheet">
+		<link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+		{% block scripts %}{% endblock %}
+	</head>
+
+	<body>
+		<div class="container main-content">
+			<div class="navBar container">
+				<a href="/">Noisemaker</a>
+				<a href="/newest">Newest</a>
+				<a href="/submit">Submit</a>
+				{% if current_user %}
+				<a class="pull-right" href="/logout">Logout</a>
+				<a class="pull-right" href="#">{{ current_user.username }} ({{ karma }})</a>
+				{% else %}
+				<a class="pull-right" href="/login">Login</a>
+				{% endif %}
+			</div>
+			{% block main_content %}{% endblock %}
+		</div>
+
+		<div class="container footer">
+			<a class="pull-right" href="#">About</a>
+		</div>
+	</body>
+
+</html>

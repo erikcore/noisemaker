@@ -1,0 +1,66 @@
+{% extends "myapp/templates/base.html" %}
+{% block scripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+	function vote(node) {
+		var postId = node.id.split(/_/)[2];
+		var postType = node.id.split(/_/)[1]
+		$.post( "/vote", { id: postId, type:postType }, function( data ) {
+			$('#up_'+postType+'_'+postId+'_arrow').addClass('arrow-muted');
+		});
+		return false;
+	}
+</script>
+{% endblock %}
+{% block main_content %}
+				<table class="table">
+				<tr>
+					<td class="text-center" style="width: 25px;padding-top:10px;" align="center">
+						{% if current_user and (current_user.id == comment.author.key().id() or current_user.id in comment.upvotes) %}
+						<div class="arrow-up arrow-muted"></div>
+						{% else %}
+						<a id="up_comment_{{ comment.key().id() }}" {% if current_user %}onclick="return vote(this)"{% endif %} href="/login"><div id="up_comment_{{ comment.key().id() }}_arrow" class="arrow-up"></div></i></a>
+						{% endif %}
+						<div class="arrow-cell">{{ comment.upvotes|length - comment.downvotes|length }}</div>
+					</td>
+				<td style="padding-top: 8px;">
+						<span class="lead">{{ comment.body }}</span>
+				<div class="post-meta"></span>{{ comment.upvotes|length - comment.downvotes|length }} point{{ (comment.upvotes|length - comment.downvotes|length)|pluralize }} by {{ comment.author.username }} {{ comment.ctime|timesince }} ago | <a href="/item/{{ comment.parent_id }}/">parent</a></div>
+			</td>
+			</tr>
+		</table>
+		<div class="item_comment">
+					{% if current_user %}
+					<form role="form" action="/newcomment" method="post">
+						<input type="hidden" name="whence" value="/comment/{{ comment.key().id() }}" />
+						<input type="hidden" name="type" value="comment" />
+						<input type="hidden" name="id" value="{{ comment.key().id() }}" />
+						<textarea name="comment_body" class="form-control comment_textarea" rows="3"></textarea>
+						<button class="btn btn-sm redbutton" type="submit">Post a reply</button>
+					</form>
+					{% endif %}
+				</div>
+		<table class="table">
+		{% for reply in replies %}
+				<tr>
+					<td class="text-center" style="width: 25px;padding-top:10px;" align="center">
+						{% if current_user and (current_user.id == reply.author.key().id() or current_user.id in reply.upvotes) %}
+						<div class="arrow-up arrow-muted"></div>
+						{% else %}
+						<a id="up_comment_{{ reply.key().id() }}" {% if current_user %}onclick="return vote(this)"{% endif %} href="/login"><div id="up_comment_{{ reply.key().id() }}_arrow" class="arrow-up"></div></i></a>
+						{% endif %}
+						<div class="arrow-cell">{{ reply.upvotes|length - reply.downvotes|length }}</div>
+					</td>
+					<td>
+						<div class="text-muted comment-meta">
+							{{ reply.author.username }} {{ reply.ctime|timesince }} ago
+						</div>
+						<div class="comment-body">
+							{{ reply.body }}
+						</div>
+					</td>
+				</tr>
+		{% endfor %}
+		</table>
+		</div>
+{% endblock %}

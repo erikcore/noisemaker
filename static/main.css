@@ -1,0 +1,131 @@
+html, body {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size:11pt;
+	height:100%;
+	margin:0px;
+}
+a, a:hover {
+	font-weight:bold;
+	text-decoration:none;
+	color: #0074d9;
+}
+.navBar a, .navBar a:visited {
+	color:#7E7E7E;
+}
+.navBar a + a {
+	margin-left: 10px;
+}
+.main-content {
+	min-height: 100%;
+	margin-bottom: -40px; 
+}
+.main-content:after {
+	content: "";
+	display: block;
+}
+.footer, .main-content:after {
+	height: 40px; 
+}
+.footer {
+	font-size:10pt;
+}
+.comment-body {
+	font-size:9pt;
+}
+.footer a, .footer a:visited {
+	color:#7E7E7E;
+}
+.arrow-up {
+	width: 0; 
+	height: 0; 
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom: 12px solid #B4B3B3;
+}
+.arrow-muted {
+	border-bottom: 12px solid #E1E0E0;
+}
+.more-link {
+	margin: 20px 0px 0px 32px;
+	font-size:10pt;
+}
+.arrow-down {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid black;
+}
+.base-url {
+	color: #888;
+	font-style: italic;
+	font-size: 8.5pt;
+}
+.post-meta {
+	color: #888;
+	font-size: 8.5pt;
+}
+.navBar {
+	height:20px;
+	font-size:10pt;
+	padding:10px 0px 10px 0px;
+}
+.arrow-cell {
+	color: #B4B3B3;
+}
+.pull-right {
+	float:right;
+}
+.container {
+	max-width:960px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.table .table {
+	background-color: transparent;
+}
+.table>tbody>tr>td {
+	border-top:none;
+	vertical-align: top;
+}
+.table>tbody>tr>td.comment_up {
+	width:25px;
+}
+.item_comment {
+	margin:20px 20px 20px 32px;
+	width: 75%;
+}
+.comment_textarea {
+	margin-bottom: 10px;
+	width:100%;
+}
+.comment-meta {
+	margin-top: 6px;
+	margin-bottom: 6px;
+	color: #888;
+	font-size: 8.5pt;
+}
+.submit-wrap {
+	padding:20px;
+}
+#newTitleInput {
+	width:75%;
+	max-width: 600px;
+}
+#newURLInput {
+	width:75%;
+	max-width: 600px;
+}
+#newTextInput {
+	width: 100%;
+	max-width: 600px;
+}
+.login-wrap {
+	text-align:center;
+}
+#or_break {
+	margin:20px 0px 20px 0px;
+}
+input {
+	margin: 10px 0px 10px 0px;
+}

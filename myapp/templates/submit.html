@@ -1,0 +1,18 @@
+{% extends "myapp/templates/base.html" %}
+{% block title %}Submit a Post to Noisemaker{% endblock %}
+{% block main_content %}
+<div class="submit-wrap">
+	<form role="form" name="submit_new_form" action="/submit" method="post">
+		<div class="form-group">
+			<label for="newTitleInput">Title</label>
+			<input id="newTitleInput" class="form-control" type="text" name="new_title" maxlength="80" required />
+			<span class="post-meta">Required. 80 characters or less.</span><br />
+			<label for="newURLInput">URL</label>
+			<input id="newURLInput" class="form-control" type="text" name="new_url"><br />
+			<!--<div>-or-</div>
+			<textarea id="newTextInput" name="new_text" rows="4" cols="50" placeholder="Type some text or a question here."></textarea><br />-->
+			<button type="submit" class="btn btn-sm redbutton">Submit</button>
+		</div>
+	</form>
+</div>
+{% endblock %}
