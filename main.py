@@ -82,9 +82,8 @@ class RegisterHandler(BaseHandler):
 			self.session["user"] = user_dict
 			if whence:
 				self.redirect(str(whence))
-			# Cue up that email, homey
-			message = mail.EmailMessage(sender="Noisemaker <hello@noisemakerclub.appspotmail.com>",
-										subject="Welcome to Noisemaker")
+
+			message = mail.EmailMessage(sender="Noisemaker <hello@noisemakerclub.appspotmail.com>", subject="Welcome to Noisemaker")
 
 			message.to = email_address
 
